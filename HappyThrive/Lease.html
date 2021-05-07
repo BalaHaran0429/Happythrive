@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>HappyThrive</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="" />
+		<meta name="author" content="http://webthemez.com" />
+		<!-- css -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" />
+		<link href="css/fancybox/jquery.fancybox.css" rel="stylesheet">
+		<link href="css/jcarousel.css" rel="stylesheet" />
+		<link href="css/flexslider.css" rel="stylesheet" />
+		<link href="js/owl-carousel/owl.carousel.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet" />
+		 
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<![endif]-->
+		
+		</head>
+<body>
+<div id="wrapper">
+	<!-- start header -->
+	<header>
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html"><img src="img\HappyThrive-logos\1.png" alt="logo" style="width: 25%; margin-top: -100px;"/></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <li class=""><a href="home.html">Home</a></li> 
+						<!-- <li><a href="about.html">About Us</a></li> -->
+						<li><a href="services.html">Services</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</header><!-- end header -->
+	<body class="container-fluid">
+	
+		<section class="hero-text">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="aligncenter"><h1 class="aligncenter">Make Your Bussiness Big</h3></div>
+					</div>
+				</div>
+			</div>
+			</section>
+			<br><br><br>
+
+	<form class="container-fluid" id="contactForm" style="margin-left: 300px;">
+		<div class="col-md-8" style="margin-left: 0px;">
+			<div class="card">
+				<div class="card-body">
+					<div class="form-group">
+						<label for="exampleFormControlInput1">
+							Name
+						</label>
+						
+						<input type="text" class="form-control"
+						id="name" placeholder="Enter your name">
+					</div>
+	
+					<div class="form-group">
+						<label for="exampleFormControlInput1">
+							 Contact No
+						</label>
+						
+						<input type="text" class="form-control"
+						id="email" placeholder="contact no">
+					</div>
+					
+					<div class="form-group">
+						<label for="exampleFormControlInput1">
+							 Period
+						</label>
+						
+						<input type="number" class="form-control"
+						id="msg" placeholder="In months">
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlInput1">
+							 Lease Id
+						</label>
+						
+						<input type="text" class="form-control"
+						id="hid" placeholder="Lease ID no">
+					</div>
+				</div>
+				
+				<button type="submit" class="btn btn-primary"
+					style="margin-left: 15px; margin-top: 10px">
+					Submit
+				</button>
+			</div>
+		</div>
+		
+		
+	</form>
+
+	<script src=
+"https://www.gstatic.com/firebasejs/3.7.4/firebase.js">
+	</script>
+	
+	<script>
+var firebaseConfig = {
+    apiKey: "AIzaSyBLdQSL19v7cmVlXwYheK7SdtVqehl99u8",
+    authDomain: "happythrive-cac49.firebaseapp.com",
+    databaseURL: "https://happythrive-cac49-default-rtdb.firebaseio.com",
+    projectId: "happythrive-cac49",
+    storageBucket: "happythrive-cac49.appspot.com",
+    messagingSenderId: "425774179854",
+    appId: "1:425774179854:web:986c8020794850a7733e5f",
+    measurementId: "G-WRD1S024LH"
+  };
+		firebase.initializeApp(firebaseConfig);
+
+		var messagesRef = firebase.database()
+			.ref('Lease');
+
+		
+		document.getElementById('contactForm')
+			.addEventListener('submit', submitForm);
+
+		function submitForm(e) {
+			e.preventDefault();
+
+			// Get values
+			var name = getInputVal('name');
+			var email = getInputVal('email');
+			var num = getInputVal('msg');
+			var hid = getInputVal('hid');
+			
+			saveMessage(name, email,num,msg);
+			document.getElementById('contactForm').reset();
+		}
+
+		// Function to get get form values
+		function getInputVal(id) {
+			return document.getElementById(id).value;
+		}
+
+		// Save message to firebase
+		function saveMessage(name, email,msg,hid) {
+		
+
+			var newMessageRef = messagesRef.push();
+			newMessageRef.set({
+				name: name,
+				email: email,
+				msg: msg,
+				hid: hid,
+			});
+		}
+
+		function multiplyBy()
+{
+	var nop = getInputVal('nop');
+
+        num1 = 150;
+		pay = num1 * nop;
+        
+        document.getElementById("result").innerHTML = num1 * nop;
+	
+}
+	</script>
+	<script>
+	
+	</script>
+</body>
+
+	
+	
+	<br><br><br>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Our Contact</h5>
+						<address>
+						<strong>HappyThrive Inc</strong><br>
+						 Near Silnile tower<br>
+						 Pin-641001 India.</address>
+						<p>
+							<i class="icon-phone"></i> 0422 - 22334455 <br>
+							<i class="icon-envelope-alt"></i> happythrive@yahoo.in
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Quick Links</h5>
+						<ul class="link-list">
+							<li><a href="#">Latest Events</a></li>
+							<li><a href="#">Terms and conditions</a></li>
+							<li><a href="#">Privacy policy</a></li>
+							<li><a href="#">Career</a></li>
+							<li><a href="#">Contact us</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Latest posts</h5>
+						<ul class="link-list">
+							<li><p>Find your place with an immersive photo experience and the most listings, including things you won’t find anywhere else.</p></li>
+							
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Recent News</h5>
+						<ul class="link-list">
+							<li><p>Whether you get a cash offer through HappyThrive Offers® or choose to sell traditionally, we can help you navigate a successful sale.</p></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="sub-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="copyright">
+							<p>
+								<span>&copy; HappyThrive 2021 All right reserved.  </span><a href="#" target="_blank"></a>
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<ul class="social-network">
+							<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+							<li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+							<li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		</footer>
+</div>
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyDcIfaGRe5uB_Msa_uCzBPHNE2c77ehHkM",
+    authDomain: "foodcart-6b9c0.firebaseapp.com",
+    projectId: "foodcart-6b9c0",
+    storageBucket: "foodcart-6b9c0.appspot.com",
+    messagingSenderId: "246053503453",
+    appId: "1:246053503453:web:58782a69dee230e46e3634",
+    measurementId: "G-5LFWKGZXPV"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+<!-- javascript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.fancybox-media.js"></script> 
+<script src="js/portfolio/jquery.quicksand.js"></script>
+<script src="js/portfolio/setting.js"></script>
+<script src="js/jquery.flexslider.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>

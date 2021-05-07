@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+  .center {
+    width: 900px;
+    margin: 200px 400px 0px 0px;
+  }
+  .right{
+    margin: -300px 0px 0px 700px;
+  }
+  

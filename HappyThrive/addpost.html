@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HappyThrive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="http://webthemez.com" />
+<!-- css -->
+
+<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="css/fancybox/jquery.fancybox.css" rel="stylesheet">
+<link href="css/jcarousel.css" rel="stylesheet" />
+<link href="css/flexslider.css" rel="stylesheet" />
+<link href="css/style.css" rel="stylesheet" />
+ 
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div id="wrapper">
+	<!-- start header -->
+		<header>
+        <div class="navbar navbar-default navbar-static-top" >
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-Bistro=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+					<a class="navbar-brand" href="home.html"><img src="img\HappyThrive-logos\1.png" alt="logo" style="width: 25%; margin-top: -100px;"/></a>
+                </div>
+                <div class="navbar-collapse collapse ">
+                    <ul class="nav navbar-nav">
+                        <li><a href="home.html">Home</a></li> 
+						<li class="active"><a href="portfolio.html">Portfolio</a></li>
+                       
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</header><!-- end header -->
+	<body>
+		<div class="conatiner">
+			<h1  style="text-align: center; color: rgb(129, 21, 21);">Add Post</h1>
+		</div>
+		<div class="container">
+			<h3>Choose your Image have been Post</h3>
+		
+
+			<span class="input-group-btn">
+                <span class="btn btn-default btn-file">
+					<input type="file" id="photo" style="background-color:burlywood" >
+				</span>
+			</span>
+	<br>
+
+			<label>Add Description</label>
+			<br>
+			<textarea type="text" id="desc"></textarea>
+			<br>		<br><br>
+		<button onclick="uploadImage()" style="color: black;">Upload Image</button>
+		<!-- Stream video via webcam -->
+	<br><br>
+
+		</div>
+		
+	  </body>
+	  
+	  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+	  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-storage.js"></script>
+	
+	  <script>
+		var firebaseConfig = {
+			apiKey: "AIzaSyBLdQSL19v7cmVlXwYheK7SdtVqehl99u8",
+			authDomain: "happythrive-cac49.firebaseapp.com",
+			databaseURL: "https://happythrive-cac49-default-rtdb.firebaseio.com",
+			projectId: "happythrive-cac49",
+			storageBucket: "happythrive-cac49.appspot.com",
+			messagingSenderId: "425774179854",
+			appId: "1:425774179854:web:986c8020794850a7733e5f",
+			measurementId: "G-WRD1S024LH"
+		};
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		console.log(firebase);
+	
+		function uploadImage() {
+		  const ref = firebase.storage().ref();
+		  const file = document.querySelector("#photo").files[0];
+		  const name = +new Date() + "-" + file.name;
+		  const metadata = {
+			contentType: file.type
+		  };
+		  alert('uploaded Successfully')
+		  const task = ref.child(name).put(file, metadata);
+		  task
+			.then(snapshot => snapshot.ref.getDownloadURL())
+			.then(url => {
+			  console.log(url);
+			  document.querySelector("#image").src = url;
+			})
+			.catch(console.error);
+		}
+	
+	const video = document.getElementById('video');
+	const canvas = document.getElementById('canvas');
+	const snap = document.getElementById("snap");
+	const errorMsgElement = document.querySelector('span#errorMsg');
+	
+	const constraints = {
+	  audio: false,
+	  video: {
+		width: 400, height: 400
+	  }
+	};
+	
+	// Access webcam
+	async function init() {
+	  try {
+		const stream = await navigator.mediaDevices.getUserMedia(constraints);
+		handleSuccess(stream);
+	  } catch (e) {
+		errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+	  }
+	}
+	
+	// Success
+	function handleSuccess(stream) {
+	  window.stream = stream;
+	  video.srcObject = stream;
+	}
+	
+	// Load init
+	init();
+	
+	// Draw image
+	var context = canvas.getContext('2d');
+	snap.addEventListener("click", function() {
+		context.drawImage(video, 0, 0, 640, 480);
+		var image = new Image();
+	image.id = "pic";
+	image.src = canvas.toDataURL();
+	console.log(image.src)
+	var button = document.createElement('button')
+	button.textContent = 'Upload Image'
+	document.body.appendChild(button)
+	
+	button.onclick = function() {
+		const ref = firebase.storage().ref();
+		ref.child(new Date() + '-' + 'base64').putString(image.src, 'data_url').then(function(snapshot) {
+		console.log('Uploaded a data_url string!');
+		alert("Image Uploaded")
+	});
+	}
+	});
+	  </script>
+	
+	
+	<br><br><br>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Our Contact</h5>
+						<address>
+						<strong>FOOD CART</strong><br>
+						 Near Silnile tower<br>
+						 Pin-641042 India.</address>
+						<p>
+							<i class="icon-phone"></i> 0422 - 22334455 <br>
+							<i class="icon-envelope-alt"></i> foodcart@gmail.com
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Quick Links</h5>
+						<ul class="link-list">
+							<li><a href="#">Latest Events</a></li>
+							<li><a href="#">Terms and conditions</a></li>
+							<li><a href="#">Privacy policy</a></li>
+							<li><a href="#">Career</a></li>
+							<li><a href="#">Contact us</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Latest posts</h5>
+						<ul class="link-list">
+							<li><a href="#">A party will typically feature food and beverages, and often music and dancing or other forms of entertainment.</a></li>
+		
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="widget">
+						<h5 class="widgetheading">Recent News</h5>
+						<ul class="link-list">
+							<li><a href="#">Full Service Buffet. Full service buffets are seen when more services are required. We try to accommodate your special requests. Popular add-ons for full service buffets include preset-salads, breads, and desserts. The tables can be set with silverware, glasses and condiments, such as salt, pepper and lemon.</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="sub-footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="copyright">
+							<p>
+								<span>&copy; FOOD CART 2021 All right reserved.  </span><a href="#" Bistro="_blank"></a>
+							</p>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<ul class="social-network">
+							<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+							<li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+							<li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		</footer>
+</div>
+
+
+
+
+<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+<!-- javascript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/jquery.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.fancybox.pack.js"></script>
+<script src="js/jquery.fancybox-media.js"></script> 
+<script src="js/portfolio/jquery.quicksand.js"></script>
+<script src="js/portfolio/setting.js"></script>
+<script src="js/jquery.flexslider.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
